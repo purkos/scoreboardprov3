@@ -1,3 +1,55 @@
 # ScoreBoardPro Backend API Documentation
 ## Overview
-# The ScoreBoardPro API provides endpoints for user authentication, player management, and rating. The API supports features like user registration, login, managing favorites, and rating players. It is built using ASP.NET Core and Entity Framework Core with JWT authentication.
+### The ScoreBoardPro API provides endpoints for user authentication, player management, and rating. The API supports features like user registration, login, managing favorites, and rating players. It is built using ASP.NET Core and Entity Framework Core with JWT authentication.
+
+API Endpoints
+Account Endpoints
+These endpoints manage user authentication, authorization, and account information.
+
+POST /api/account/register
+Registers a new user. Expects email and password in the request body and returns a JWT on success.
+
+POST /api/account/login
+Authenticates a user with email and password. Returns a JWT on success.
+
+POST /api/account/logout
+Logs out the authenticated user, ending their session.
+
+GET /api/account/user-info
+Returns the authenticated user's details, including user ID, email, username, and roles. Requires a valid JWT.
+
+GET /api/account/favorite-players
+Retrieves the list of the user's favorite players. Requires a valid JWT.
+
+GET /api/account/users
+Retrieves a list of all users (excluding the currently authenticated user). Requires an Admin role.
+
+DELETE /api/account/users/{id}
+Deletes a specified user by their ID. Requires an Admin role.
+
+POST /api/account/assign-role
+Assigns a specified role to a user. Expects email and role in the request body. Requires an Admin role.
+
+Player Endpoints
+These endpoints manage player information, favorites, and ratings.
+
+POST /api/player/add-to-favorites
+Adds a specified player to the authenticated user's favorites list. Requires playerId in the body.
+
+GET /api/player/is-favorite/{playerId}
+Checks if a specific player is in the user's favorites.
+
+POST /api/player/rate
+Adds or updates a rating for a specific player. Expects playerId and rating in the body. Requires a valid JWT.
+
+DELETE /api/player/remove-from-favorites/{playerId}
+Removes a specific player from the user's favorites. Requires a valid JWT.
+
+GET /api/player/user-ratings
+Retrieves all player ratings made by the authenticated user. Requires a valid JWT.
+
+GET /api/player/player-stats
+Retrieves aggregated rating statistics for all players, including the count and average rating for each player.
+
+DELETE /api/player/rate/{playerId}
+Deletes the authenticated user's rating for a specific player. Requires a valid JWT.
