@@ -1,0 +1,16 @@
+backend/node_modules/
+frontend/node_modules/
+
+# Ignorowanie plików logów
+*.log
+
+# Ignorowanie plików buildów i cache
+backend/dist/
+frontend/build/
+frontend/.next/
+frontend/.angular
+frontend/.env
+
+# Ignorowanie danych środowiskowych
+backend/.env
+frontend/.env

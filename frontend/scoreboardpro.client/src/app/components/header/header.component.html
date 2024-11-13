@@ -1,0 +1,80 @@
+<header
+  class="flex h-20 items-center justify-between gap-3 border-neutral-200 bg-white px-6 py-3 text-neutral-700 text-rhino-primary border-0.5"
+>
+  <div class="flex items-center justify-center gap-2">
+    <p class="text-2xl font-bold hover:cursor-pointer" routerLink="/">
+      ScoreBoardPro
+    </p>
+  </div>
+  <nav class="flex items-center justify-between gap-20 font-medium">
+    <ul class="relative flex gap-10 text-sm">
+      <li>
+        <a
+          class="relative z-10 button-classic"
+          routerLink="home"
+          routerLinkActive="active"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          class="relative z-10 button-classic"
+          routerLink="/"
+          routerLinkActive="active"
+          >About</a
+        >
+      </li>
+      <li>
+        <a
+          class="relative z-10 button-classic"
+          routerLink="/"
+          routerLinkActive="active"
+          >Contact</a
+        >
+      </li>
+    </ul>
+  </nav>
+
+  <div class="flex gap-2 text-sm user-actions">
+    <div *ngIf="!isAuthenticated" class="flex gap-2">
+      <button class="button-classic" routerLink="/auth/register">
+        Sign Up
+      </button>
+      <button class="button-classic button-primary" routerLink="/auth/login">
+        Sign In
+      </button>
+    </div>
+    <button
+      *ngIf="isAuthenticated"
+      [matMenuTriggerFor]="userMenu"
+      class="flex items-center gap-3 rounded-full px-4 py-2 duration-150"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          alt=""
+          class="h-9 w-9 rounded-full object-cover border-secondary"
+          src="https://robohash.org/350e6893eedd34bf9fe55310858292fc?set=set4&bgset=&size=400x400"
+        />
+<!--        <span class="font-semibold">{{ user.username }}</span>-->
+      </div>
+    </button>
+    <mat-menu #userMenu="matMenu" class="custom-menu">
+      <button class="" mat-menu-item routerLink="/profile">
+        <div
+          class="flex items-center justify-between gap-3 font-medium text-rhino-900 custom-menu-item"
+        >
+          <i class="flex items-center text-base fi fi-br-user"></i>
+          <span class="text-sm">Profile</span>
+        </div>
+      </button>
+      <button (click)="logout()" class="" mat-menu-item>
+        <div
+          class="flex items-center justify-between gap-3 font-medium text-rhino-900 custom-menu-item"
+        >
+          <i class="flex items-center text-base fi fi-br-sign-out-alt"></i>
+          <span class="text-sm">Logout</span>
+        </div>
+      </button>
+    </mat-menu>
+  </div>
+</header>

@@ -1,0 +1,21 @@
+<div class="flex h-screen flex-col overflow-hidden text-textBlack font-saira">
+  <!-- Sticky Header -->
+  <div class="fixed top-0 z-10 w-full">
+    <app-header></app-header>
+  </div>
+
+  <!-- Main Content Area with Sidebar -->
+  <div class="mt-20 flex">
+    <!-- Sticky Sidebar -->
+    <div class="fixed h-full w-64 overflow-y-auto">
+      <app-sidenav></app-sidenav>
+    </div>
+
+    <!-- Router Outlet Content -->
+    <div
+      class="ml-64 w-full overflow-y-scroll h-screen mb-12 bg-rhino-background px-5 py-4"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
