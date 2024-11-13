@@ -2,9 +2,30 @@
 ## Overview
 ### The ScoreBoardPro API provides endpoints for user authentication, player management, and rating. The API supports features like user registration, login, managing favorites, and rating players. It is built using ASP.NET Core and Entity Framework Core with JWT authentication.
 
-## API Endpoints
+# API Documentation
 
-### Account Endpoints
+## Table of Contents
+- [Account Endpoints](#account-endpoints)
+  - [Register](#post-apicontrollerregister)
+  - [Login](#post-apicontrollerlogin)
+  - [Logout](#post-apicontrollerlogout)
+  - [Get User Info](#get-apicontrolleruser-info)
+  - [Get Favorite Players](#get-apicontrollerfavorite-players)
+  - [Get All Users](#get-apicontrollerusers)
+  - [Delete User](#delete-apicontrollerusersid)
+  - [Assign Role](#post-apicontrollerassign-role)
+- [Player Endpoints](#player-endpoints)
+  - [Add to Favorites](#post-apiplayeradd-to-favorites)
+  - [Check Favorite Status](#get-apiplayeris-favoriteplayerid)
+  - [Rate a Player](#post-apiplayerrate)
+  - [Remove from Favorites](#delete-apiplayerremove-from-favoritesplayerid)
+  - [Get User Ratings](#get-apiplayeruser-ratings)
+  - [Get Player Stats](#get-apiplayerplayer-stats)
+  - [Delete Rating](#delete-apiplayerrateplayerid)
+
+---
+
+## Account Endpoints
 These endpoints manage user authentication, authorization, and account information.
 
 - **`POST /api/account/register`**  
@@ -31,7 +52,7 @@ These endpoints manage user authentication, authorization, and account informati
 - **`POST /api/account/assign-role`**  
   Assigns a specified role to a user. Expects `email` and `role` in the request body. Requires an Admin role.
 
-### Player Endpoints
+## Player Endpoints
 These endpoints manage player information, favorites, and ratings.
 
 - **`POST /api/player/add-to-favorites`**  
@@ -54,4 +75,9 @@ These endpoints manage player information, favorites, and ratings.
 
 - **`DELETE /api/player/rate/{playerId}`**  
   Deletes the authenticated user's rating for a specific player. Requires a valid JWT.
+
+---
+
+Each endpoint's request and response formats follow standard JSON structures. Use JWT authentication for all endpoints that require user identification.
+
 
