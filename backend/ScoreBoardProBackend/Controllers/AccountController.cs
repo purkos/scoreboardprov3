@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ScoreBoardProBackend.Data;
+using Npgsql;
+using NpgsqlTypes;
+
 
 namespace ScoreBoardProBackend.Controllers;
 
@@ -110,7 +113,7 @@ public class AccountController : ControllerBase
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userId))
             return Unauthorized(new { message = "User not authenticated" });
-
+        
         var favoritePlayers = await _dbContext.FavPlayers
             .Where(fp => fp.UserId == userId)
             .Select(fp => new { fp.PlayerId, fp.DateAdded })
@@ -126,7 +129,7 @@ public class AccountController : ControllerBase
         var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         var users = await _userManager.Users
-            .Where(user => user.Id != currentUserId) // Filtrujemy użytkowników
+            .Where(user => user.Id != currentUserId)
             .Select(user => new 
             {
                 user.Id,
@@ -152,8 +155,6 @@ public class AccountController : ControllerBase
 
         return Ok(new { message = "User deleted successfully" });
     }
-    
-    
 
     [Authorize(Roles = "Admin")]
     [HttpPost("assign-role")]
@@ -169,9 +170,7 @@ public class AccountController : ControllerBase
 
         return BadRequest(result.Errors);
     }
-
-  
-
+    
     private string GenerateJwtToken(ApplicationUser user)
     {
         var claims = new List<Claim>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ScoreBoardProBackend.Data;
 using ScoreBoardProBackend.Models;
+using Npgsql;
 
 namespace ScoreBoardProBackend.Controllers;
 
@@ -18,36 +19,26 @@ public class PlayerController : ControllerBase
         _dbContext = dbContext;
     }
 
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpPost("add-to-favorites/")]
-    public async Task<IActionResult> AddToFavorites([FromBody] AddToFavoritesModel model)
-    {
-        if (model == null || string.IsNullOrEmpty(model.PlayerId))
-            return BadRequest("Invalid player id");
+	public async Task<IActionResult> AddToFavorites([FromBody] AddToFavoritesModel model)
+	{
+    	if (model == null || string.IsNullOrEmpty(model.PlayerId))
+        	return BadRequest("Invalid player id");
 
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    	var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        if (string.IsNullOrEmpty(userId))
-            return Unauthorized("User not authenticated");
+    	if (string.IsNullOrEmpty(userId))
+        	return Unauthorized("User not authenticated");
 
-        var existingFav = await _dbContext.FavPlayers
-            .FirstOrDefaultAsync(f => f.UserId == userId && f.PlayerId == model.PlayerId);
+    	await _dbContext.Database.ExecuteSqlRawAsync("CALL add_to_favorites(@userId, @playerId)", 
+        	new NpgsqlParameter("@userId", userId), 
+        	new NpgsqlParameter("@playerId", model.PlayerId));
 
-        if (existingFav != null)
-            return Conflict("Player is already in your favorites");
+    	return Ok(new { message = "Player added to favorites successfully." });
+	}
 
-        var favPlayer = new FavPlayer
-        {
-            UserId = userId,
-            PlayerId = model.PlayerId, 
-            DateAdded = DateTime.UtcNow
-        };
-
-        _dbContext.FavPlayers.Add(favPlayer);
-        await _dbContext.SaveChangesAsync();
-
-        return Ok(new { message = "Player added to favorites successfully." });
-    }
-
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("is-favorite/{playerId}")]
     public async Task<IActionResult> IsFavorite(string playerId)
     {
@@ -114,6 +105,16 @@ public class PlayerController : ControllerBase
         return Ok(new { message = "Player removed from favorites succesfully" });
     }
 
+	[HttpGet("ranking")]
+	public async Task<IActionResult> GetRanking()
+	{
+           	var players = await _dbContext.AveragePlayerRatings
+            	.FromSqlRaw("SELECT * FROM public.get_average_player_ratings()")
+            	.ToListAsync();
+
+        	return Ok(players);
+    }
+
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpGet("user-ratings")]
     public async Task<IActionResult> GetRatedPlayersByUsers()
@@ -137,20 +138,21 @@ public class PlayerController : ControllerBase
     }
     
     [HttpGet("player-stats")]
-    public async Task<IActionResult> GetPlayerRatingStats()
-    {
-        var ratings = await _dbContext.PlayerRatings
-            .GroupBy(r => r.PlayerId) 
-            .Select(group => new
-            {
-                PlayerId = group.Key,
-                RatingCount = group.Count(), // Liczba ocen
-                AverageRating = group.Average(r => r.Rating)
-            })
-            .ToListAsync();
+	public async Task<IActionResult> GetPlayerRatingStats()
+	{
+    	var ratings = await _dbContext.PlayerRatings
+        .GroupBy(r => r.PlayerId) 
+        .Select(group => new
+        {
+            PlayerId = group.Key,
+            RatingCount = group.Count(),
+            AverageRating = group.Average(r => r.Rating)
+        })
+        .OrderByDescending(r => r.AverageRating)
+        .ToListAsync();
 
-        return Ok(ratings);
-    }
+    	return Ok(ratings);
+	}
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [HttpDelete("rate/{playerId}")]
@@ -171,6 +173,5 @@ public class PlayerController : ControllerBase
         await _dbContext.SaveChangesAsync();
 
         return Ok(new { message = "Rating deleted successfully" });
-        
     }
 }

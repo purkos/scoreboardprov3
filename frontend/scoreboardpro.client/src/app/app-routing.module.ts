@@ -7,6 +7,7 @@ import { AuthComponent } from "./pages/auth/auth.component";
 import { PlayersComponent } from "./pages/players/players.component";
 import { PlayerDetailsComponent } from "./pages/players/player-details/player-details.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
+import {RankingComponent} from './pages/ranking/ranking.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: "players", component: PlayersComponent },
   { path: "players/:id", component: PlayerDetailsComponent },
   { path: "profile", component: ProfileComponent },
+  { path: "ranking", component: RankingComponent},
   { path: "", component: HomeComponent, pathMatch: "full" },
 ];
 
