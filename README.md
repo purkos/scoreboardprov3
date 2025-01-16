@@ -92,7 +92,8 @@ Each endpoint's request and response formats follow standard JSON structures. Us
 - Explanation: This function retrieves the average rating for a specific player by calculating the mean of all ratings associated with the player.
 
 ## DeleteUserData (Trigger)
-- This trigger is activated when a user is deleted, automatically removing all data related to that user from the FavPlayers and PlayerRatings tables.
+- This trigger is activated when a user is deleted, automatically removing all data related to that user from the
+  FavPlayers and PlayerRatings tables.
   <img width="609" alt="trigger1" src="https://github.com/user-attachments/assets/2f876d2f-e24c-48ca-9201-b3589e9c129c" />
   <img width="468" alt="trigger2" src="https://github.com/user-attachments/assets/d985acef-aa6b-4964-94ca-7e8612de8c46" />
 - Explanation: This trigger ensures data integrity by deleting the user's related data from the FavPlayers and PlayerRatings tables whenever the user is removed from the system.
