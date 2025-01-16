@@ -80,4 +80,8 @@ These endpoints manage player information, favorites, and ratings.
 
 Each endpoint's request and response formats follow standard JSON structures. Use JWT authentication for all endpoints that require user identification.
 
+## AddFavoritePlayer (Stored Procedure)
+- This stored procedure adds a player to the logged-in user's favorites. It checks if the player is already a favorite and adds the player to the FavPlayers table
+- Explanation: This procedure ensures that a player is only added to the favorites if they aren't already present.
+
 
