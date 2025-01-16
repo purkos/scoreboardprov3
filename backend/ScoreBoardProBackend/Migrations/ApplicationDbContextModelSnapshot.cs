@@ -218,6 +218,18 @@ namespace ScoreBoardProBackend.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ScoreBoardProBackend.Models.AveragePlayerRating", b =>
+                {
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("PlayerId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.ToTable("AveragePlayerRatings");
+                });
+
             modelBuilder.Entity("ScoreBoardProBackend.Models.FavPlayer", b =>
                 {
                     b.Property<int>("Id")

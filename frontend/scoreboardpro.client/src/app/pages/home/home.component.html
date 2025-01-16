@@ -1,79 +1,104 @@
-<div class="flex  flex-col justify-center px-3 gap-5">
-   <p class="text-3xl">Welcome</p>
+<div class="flex flex-col justify-center px-3 gap-5 overflow-y-scroll pb-20 pt-5">
 
-   <h1>API Documentation for ScoreBoardProBackend</h1>
+    <span class="text-3xl font-medium">API Documentation for ScoreBoardProBackend</span>
 
-   <span>
-      This application, ScoreBoardPro, is designed to enhance the user experience around managing, tracking, and interacting with sports players and their statistics. The app allows users to register and log in, save favorite players, and provide personalized ratings
+    <span>
+      This application, ScoreBoardPro, is designed to enhance the user experience around managing, tracking, and interacting with sports players and their statistics. The app allows users to register and log in, save favorite players, and provide personalized ratings.
    </span>
-   <p class="font-bold uppercase">Account Controller</p>
-   <ul class="flex flex-col gap-2">
-      <li>
-         <strong>Register</strong> - <code>[POST] /api/account/register</code>
-         <p>Registers a new user by creating an account based on the information provided in the <code>RegisterModel</code>. Generates a JWT token and returns it in the response.</p>
-      </li>
-      <li>
-         <strong>Login</strong> - <code>[POST] /api/account/login</code>
-         <p>Authenticates the user, returning a JWT token upon successful login. Uses <code>LoginModel</code> containing the user's email and password.</p>
-      </li>
-      <li>
-         <strong>Logout</strong> - <code>[POST] /api/account/logout</code>
-         <p>Logs out the user, ending their session within the application.</p>
-      </li>
-      <li>
-         <strong>GetUserInfo</strong> - <code>[GET] /api/account/user-info</code>
-         <p>Returns information about the currently logged-in user, including user ID, email, username, and assigned roles.</p>
-      </li>
-      <li>
-         <strong>GetFavoritePlayers</strong> - <code>[GET] /api/account/favorite-players</code>
-         <p>Fetches the list of the user's favorite players along with the date they were added to favorites.</p>
-      </li>
-      <li>
-         <strong>GetAllUsers</strong> - <code>[GET] /api/account/users</code> (Admin Only)
-         <p>Returns a list of all users except the currently logged-in one, including ID, username, and email.</p>
-      </li>
-      <li>
-         <strong>DeleteUser</strong> - <code>[DELETE] /api/account/users/id</code> (Admin Only)
-         <p>Deletes a user based on the provided ID.</p>
-      </li>
-      <li>
-         <strong>AssignRole</strong> - <code>[POST] /api/account/assign-role</code> (Admin Only)
-         <p>Assigns a role to a user based on their email address and the role specified in the <code>AssignRoleModel</code>.</p>
-      </li>
-   </ul>
 
-   <p class="font-bold uppercase">Player Controller</p>
-   <ul class="flex flex-col gap-2">
-      <li>
-         <strong>AddToFavorites</strong> - <code>[POST] /api/player/add-to-favorites</code>
-         <p>Adds a player to the user's favorites, checking if the player is already in favorites. Requires user login.</p>
-      </li>
-      <li>
-         <strong>IsFavorite</strong> - <code>[GET] /api/player/is-favorite/playerId</code>
-         <p>Checks if a player with the specified ID is in the logged-in user's favorites. Requires user login.</p>
-      </li>
-      <li>
-         <strong>AddOrUpdateRating</strong> - <code>[POST] /api/player/rate</code>
-         <p>Adds or updates a player's rating by the logged-in user. Creates a rating if it does not exist, or updates an existing one.</p>
-      </li>
-      <li>
-         <strong>RemoveFromFavorites</strong> - <code>[DELETE] /api/player/remove-from-favorites/playerId</code>
-         <p>Removes a player from the logged-in user's favorites. Requires user login.</p>
-      </li>
-      <li>
-         <strong>GetRatedPlayersByUsers</strong> - <code>[GET] /api/player/user-ratings</code>
-         <p>Returns a list of players rated by the currently logged-in user along with the rating and date added.</p>
-      </li>
-      <li>
-         <strong>GetPlayerRatingStats</strong> - <code>[GET] /api/player/player-stats</code>
-         <p>Returns rating statistics for players, including the count of ratings and the average rating for each player.</p>
-      </li>
-      <li>
-         <strong>DeleteRating</strong> - <code>[DELETE] /api/player/rate/playerId</code>
-         <p>Deletes the rating for a player by the logged-in user.</p>
-      </li>
-   </ul>
+    <p class="font-bold uppercase">Account Controller</p>
+    <ul class="flex flex-col gap-2">
+        <li>
+            <strong>Register</strong> - <code>[POST] /api/account/register</code>
+            <p>Registers a new user by creating an account based on the information provided in the <code>RegisterModel</code>. Generates a JWT token and returns it in the response.</p>
+        </li>
+        <li>
+            <strong>Login</strong> - <code>[POST] /api/account/login</code>
+            <p>Authenticates the user, returning a JWT token upon successful login. Uses <code>LoginModel</code> containing the user's email and password.</p>
+        </li>
+        <li>
+            <strong>Logout</strong> - <code>[POST] /api/account/logout</code>
+            <p>Logs out the user, ending their session within the application.</p>
+        </li>
+        <li>
+            <strong>GetUserInfo</strong> - <code>[GET] /api/account/user-info</code>
+            <p>Returns information about the currently logged-in user, including user ID, email, username, and assigned roles.</p>
+        </li>
+        <li>
+            <strong>GetFavoritePlayers</strong> - <code>[GET] /api/account/favorite-players</code>
+            <p>Fetches the list of the user's favorite players along with the date they were added to favorites.</p>
+        </li>
+        <li>
+            <strong>GetAllUsers</strong> - <code>[GET] /api/account/users</code> (Admin Only)
+            <p>Returns a list of all users except the currently logged-in one, including ID, username, and email.</p>
+        </li>
+        <li>
+            <strong>DeleteUser</strong> - <code>[DELETE] /api/account/users/id</code> (Admin Only)
+            <p>Deletes a user based on the provided ID.</p>
+        </li>
+        <li>
+            <strong>AssignRole</strong> - <code>[POST] /api/account/assign-role</code> (Admin Only)
+            <p>Assigns a role to a user based on their email address and the role specified in the <code>AssignRoleModel</code>.</p>
+        </li>
+    </ul>
 
-   <h3>Authorization and JWT Structure</h3>
-   <p><strong>JWT Authorization</strong>: The application uses JWT tokens for authentication and authorization, generated during user registration and login.</p>
+    <p class="font-bold uppercase">Player Controller</p>
+    <ul class="flex flex-col gap-2">
+        <li>
+            <strong>AddToFavorites</strong> - <code>[POST] /api/player/add-to-favorites</code>
+            <p>Adds a player to the user's favorites, checking if the player is already in favorites. Requires user login.</p>
+        </li>
+        <li>
+            <strong>IsFavorite</strong> - <code>[GET] /api/player/is-favorite/playerId</code>
+            <p>Checks if a player with the specified ID is in the logged-in user's favorites. Requires user login.</p>
+        </li>
+        <li>
+            <strong>AddOrUpdateRating</strong> - <code>[POST] /api/player/rate</code>
+            <p>Adds or updates a player's rating by the logged-in user. Creates a rating if it does not exist, or updates an existing one.</p>
+        </li>
+        <li>
+            <strong>RemoveFromFavorites</strong> - <code>[DELETE] /api/player/remove-from-favorites/playerId</code>
+            <p>Removes a player from the logged-in user's favorites. Requires user login.</p>
+        </li>
+        <li>
+            <strong>GetRatedPlayersByUsers</strong> - <code>[GET] /api/player/user-ratings</code>
+            <p>Returns a list of players rated by the currently logged-in user along with the rating and date added.</p>
+        </li>
+        <li>
+            <strong>GetPlayerRatingStats</strong> - <code>[GET] /api/player/player-stats</code>
+            <p>Returns rating statistics for players, including the count of ratings and the average rating for each player.</p>
+        </li>
+        <li>
+            <strong>DeleteRating</strong> - <code>[DELETE] /api/player/rate/playerId</code>
+            <p>Deletes the rating for a player by the logged-in user.</p>
+        </li>
+    </ul>
+
+    <h3>Authorization and JWT Structure</h3>
+    <p><strong>JWT Authorization</strong>: The application uses JWT tokens for authentication and authorization, generated during user registration and login.</p>
+
+    <!-- New Section for Database Methods -->
+
+    <p class="font-bold uppercase text-xl">Database Methods</p>
+    <ul class="flex flex-col gap-12">
+        <li>
+            <strong class="text-lg">AddFavoritePlayer (Stored Procedure)</strong>
+            <p>This stored procedure adds a player to the logged-in user's favorites. It checks if the player is already a favorite and adds the player to the <code>FavPlayers</code> table.</p>
+            <p>Explanation: This procedure ensures that a player is only added to the favorites if they aren't already present.</p>
+            <img src="/assets/procedura.png" alt="Add Favorite Player Procedure" class="w-3/4" />
+        </li>
+        <li>
+            <strong class="text-lg">GetAverageRating (Function)</strong>
+            <p>This function calculates and returns the average rating for each player from the ratings stored in the database.</p>
+            <p>Explanation: This function retrieves the average rating for a specific player by calculating the mean of all ratings associated with the player.</p>
+            <img src="/assets/funkcja_avg.png" alt="Average Rating Function" class="w-1/2" />
+        </li>
+        <li>
+            <strong class="text-lg">DeleteUserData (Trigger)</strong>
+            <p>This trigger is activated when a user is deleted, automatically removing all data related to that user from the <code>FavPlayers</code> and <code>PlayerRatings</code> tables.</p>
+            <p>Explanation: This trigger ensures data integrity by deleting the user's related data from the <code>FavPlayers</code> and <code>PlayerRatings</code> tables whenever the user is removed from the system.</p>
+            <img src="/assets/trigger1.png" alt="Delete User Data Trigger1" class="w-1/2" />
+            <img src="/assets/trigger2.png" alt="Delete User Data Trigger2" class="w-1/2" />
+        </li>
+    </ul>
 </div>

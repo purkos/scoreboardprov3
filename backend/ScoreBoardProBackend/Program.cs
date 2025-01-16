@@ -97,5 +97,24 @@ async Task SeedRolesAndAdminUser(RoleManager<IdentityRole> roleManager, UserMana
             await userManager.AddToRoleAsync(newAdmin, "Admin");
         }
     }
+
+for (int i = 1; i <= 5; i++)
+    {
+        var userEmail = $"user{i}@scoreboard.com";
+        var user = await userManager.FindByEmailAsync(userEmail);
+
+        if (user == null)
+        {
+            var newUser = new ApplicationUser { UserName = userEmail, Email = userEmail };
+            var userPassword = "qw12QW!@";
+
+            var createUserResult = await userManager.CreateAsync(newUser, userPassword);
+
+            if (createUserResult.Succeeded)
+            {
+                await userManager.AddToRoleAsync(newUser, "User");
+            }
+        }
+    }
 }
 

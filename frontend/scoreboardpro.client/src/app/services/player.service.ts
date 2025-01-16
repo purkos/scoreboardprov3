@@ -65,6 +65,10 @@ export class PlayerService {
   public getRatedPlayersByUsers(): Observable<any[]> {
       return this.http.get<any[]>(`${this.apiUrl}/player/user-ratings`);
   }
+  
+  public getPlayersRanking(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/player/player-stats`);
+  }
 
   public updateRating(playerId: string, rating: number): Observable<any> {
       return this.http.put<any>(`${this.apiUrl}/player/rate`, {playerId, rating});
