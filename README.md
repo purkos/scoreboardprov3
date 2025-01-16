@@ -83,5 +83,5 @@ Each endpoint's request and response formats follow standard JSON structures. Us
 ## AddFavoritePlayer (Stored Procedure)
 - This stored procedure adds a player to the logged-in user's favorites. It checks if the player is already a favorite and adds the player to the FavPlayers table
 - Explanation: This procedure ensures that a player is only added to the favorites if they aren't already present.
-
+  <img width="944" alt="procedura" src="https://github.com/user-attachments/assets/dfa0dfa4-4340-4192-8611-f8a75e3aa2cb" />
 
